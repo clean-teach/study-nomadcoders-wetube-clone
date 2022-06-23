@@ -4,7 +4,29 @@ const fakeUser = {
 };
 
 export const trending = (req, res) => {
-    const videos = [1, 2, 3, 4, 5, 6, 7, 8]
+    const videos = [
+        {
+            title: 'First video', 
+            rating: 2,
+            comments: 5,
+            createAt: '2 minutes ago',
+            views: 59
+        },
+        {
+            title: 'Second video', 
+            rating: 2,
+            comments: 5,
+            createAt: '2 minutes ago',
+            views: 59
+        },
+        {
+            title: 'Third video', 
+            rating: 2,
+            comments: 5,
+            createAt: '2 minutes ago',
+            views: 59
+        }
+    ]
     return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos})
 };
 export const see = (req, res) => res.render('watch', {pageTitle: 'Watch'});
