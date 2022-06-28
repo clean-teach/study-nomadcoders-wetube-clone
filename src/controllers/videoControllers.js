@@ -44,7 +44,10 @@ export const getEdit = (req, res) => {
     res.render('edit', {pageTitle: `Editing : ${video.title}`, fakeUser, video})
 };
 export const postEdit = (req, res) => {
-    
+    const {id} = req.params;
+    const {title} = req.body;
+    videos[id - 1].title = title; // 가짜 database 실습이므로 임시 코드
+    return res.redirect(`/videos/${id}`)
 };
 // export const search = (req, res) => res.send('Search Video');
 // export const upload = (req, res) => res.send('Upload Video');
