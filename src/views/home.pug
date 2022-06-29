@@ -6,6 +6,8 @@ block content
     p I Love #{lovesTarget}
     input(type="text" placeholder="What's your name")
     button send
+    div 
+        a(href="/videos/upload") Upload Video
     each item in videos 
         +video(item)
     else 

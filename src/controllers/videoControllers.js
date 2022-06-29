@@ -30,27 +30,33 @@ let videos = [
 ];
 
 export const trending = (req, res) => {
-    return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos})
+    return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos});
 };
 export const watch = (req, res) => {
     // const id = req.params.id;
     const {id} = req.params;
-    const video = videos[id - 1];
+    const video = videos[id - 1]; // 가짜 database 실습이므로 임시 코드. // 추후 ACCESS DB 로 수정
     return res.render('watch', {pageTitle: `Watching : ${video.title}`, fakeUser, video});
 };
 export const getEdit = (req, res) => {
     const {id} = req.params;
-    const video = videos[id - 1];
-    res.render('edit', {pageTitle: `Editing : ${video.title}`, fakeUser, video})
+    const video = videos[id - 1]; // 가짜 database 실습이므로 임시 코드. // 추후 ACCESS DB 로 수정
+    res.render('edit', {pageTitle: `Editing : ${video.title}`, fakeUser, video});
 };
 export const postEdit = (req, res) => {
     const {id} = req.params;
     const {title} = req.body;
-    videos[id - 1].title = title; // 가짜 database 실습이므로 임시 코드
+    videos[id - 1].title = title; // 가짜 database 실습이므로 임시 코드. // 추후 ACCESS DB 로 수정
     return res.redirect(`/videos/${id}`)
 };
+export const getUpload = (req, res) => {
+    return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
+};
+export const postUpload = (req, res) => {
+    // Here we will add a video to the videos array
+    return res.redirect(`/`);
+};
 // export const search = (req, res) => res.send('Search Video');
-// export const upload = (req, res) => res.send('Upload Video');
 // export const remove = (req, res) => {
 //     return res.send(`Delete Video #${req.params.id}`);
 // };
