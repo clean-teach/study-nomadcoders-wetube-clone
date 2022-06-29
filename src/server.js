@@ -1,3 +1,4 @@
+import './db.js';
 import express, { urlencoded } from 'express'
 import morgan from 'morgan';
 import globalRouter from './routers/globalRouter';
@@ -19,7 +20,7 @@ app.use('/users', userRouter);
 app.use('/videos', videoRouter);
 
 const handleListen = () => {
-    console.log(`server listening on port http://localhost:${PORT}`);
+    console.log(`✔ server listening on port http://localhost:${PORT}`);
 };
 
 app.listen(PORT, handleListen);
