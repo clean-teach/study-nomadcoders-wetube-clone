@@ -53,7 +53,16 @@ export const getUpload = (req, res) => {
     return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
 };
 export const postUpload = (req, res) => {
-    // Here we will add a video to the videos array
+    const {title} = req.body;
+    const newVideo = {
+        title, 
+        rating: 0,
+        comments: 0,
+        createAt: 'now',
+        views: 0,
+        id: videos.length + 1
+    };
+    videos.push(newVideo);
     return res.redirect(`/`);
 };
 // export const search = (req, res) => res.send('Search Video');
