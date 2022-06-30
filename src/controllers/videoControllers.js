@@ -5,15 +5,30 @@ const fakeUser = {
     loggedIn: true
 };
 
-export const home = (req, res) => {
+// Callback 방식
+// export const home = (req, res) => {
+//     console.log('Start');
+//     Video.find({}, (error, videos) => {
+//         console.log('Error : ', error);
+//         console.log('Videos : ', videos);
+//         return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos});
+//     });
+//     console.log('finish');
+// };
+
+// Promise 방식
+export const home = async (req, res) => {
     console.log('Start');
-    Video.find({}, (error, videos) => {
-        console.log('Error : ', error);
+    try{
+        const videos = await Video.find({});
         console.log('Videos : ', videos);
         return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos});
-    });
+    }catch(error){
+        console.log('Error : ', {error});
+    }
     console.log('finish');
 };
+
 export const watch = (req, res) => {
     // const id = req.params.id;
     const {id} = req.params;
