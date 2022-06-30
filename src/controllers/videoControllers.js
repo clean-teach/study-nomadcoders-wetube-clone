@@ -1,10 +1,18 @@
+import Video from '../models/Video'
+
 const fakeUser = {
     username: 'nico',
     loggedIn: true
 };
 
 export const home = (req, res) => {
-    return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser});
+    console.log('Start');
+    Video.find({}, (error, videos) => {
+        console.log('Error : ', error);
+        console.log('Videos : ', videos);
+        return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos});
+    });
+    console.log('finish');
 };
 export const watch = (req, res) => {
     // const id = req.params.id;
