@@ -46,9 +46,20 @@ export const postEdit = (req, res) => {
 export const getUpload = (req, res) => {
     return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
 };
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
     const {title, description, hashtagsd} = req.body;
-    const video = new Video({
+    // const video = new Video({
+    //     title,
+    //     description,
+    //     createAt: Date.now(),
+    //     hashtags: hashtagsd.split(',').map(hashtag => `#${hashtag}`),
+    //     meta: {
+    //         views: 0,
+    //         rating:0,
+    //     },
+    // });
+    // await video.save();
+    await Video.create({
         title,
         description,
         createAt: Date.now(),
@@ -58,7 +69,6 @@ export const postUpload = (req, res) => {
             rating:0,
         },
     });
-    console.log(video);
     return res.redirect(`/`);
 };
 // export const search = (req, res) => res.send('Search Video');
