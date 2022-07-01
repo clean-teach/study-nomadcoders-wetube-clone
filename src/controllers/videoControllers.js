@@ -47,7 +47,18 @@ export const getUpload = (req, res) => {
     return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
 };
 export const postUpload = (req, res) => {
-    const {title} = req.body;
+    const {title, description, hashtagsd} = req.body;
+    const video = new Video({
+        title,
+        description,
+        createAt: Date.now(),
+        hashtags: hashtagsd.split(',').map(hashtag => `#${hashtag}`),
+        meta: {
+            views: 0,
+            rating:0,
+        },
+    });
+    console.log(video);
     return res.redirect(`/`);
 };
 // export const search = (req, res) => res.send('Search Video');
