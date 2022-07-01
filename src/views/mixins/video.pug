@@ -6,6 +6,6 @@ mixin video(video)
             li Description : #{video.description}.
             li Posted : #{video.createAt}.
             li Hashtags : #{video.hashtags}.
-            li #{video.views} views.
-            li #{video.rating}/5.
+            li #{video.meta.views} views.
+            li #{video.meta.rating}/5.
             li ID : #{video.id}
