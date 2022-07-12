@@ -5,7 +5,10 @@ mixin video(video)
         p=video.description
         small=video.createAt
         ul
-            li Hashtags : #{video.hashtags}.
+            li Hashtags : 
+                ul
+                    each hashtag in video.hashtags
+                        li=hashtag
             li #{video.meta.views} views.
             li #{video.meta.rating}/5.
             li ID : #{video.id}
