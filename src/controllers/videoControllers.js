@@ -20,6 +20,22 @@ export const watch = async (req, res) => {
     }
     return res.render('watch', {pageTitle: video.title, video, fakeUser});
 };
+export const getUpload = (req, res) => {
+    return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
+};
+export const postUpload = async (req, res) => {
+    const {title, description, hashtags} = req.body;
+    try{
+        await Video.create({
+            title,
+            description,
+            hashtags : Video.formatHasgtags(hashtags)
+        });
+        return res.redirect(`/`);
+    }catch(error){
+        return res.render('upload', {pageTitle: `Upload Video`, fakeUser, errorMessage: error._message});
+    }
+};
 export const getEdit = async (req, res) => {
     const {id} = req.params;
     const video = await Video.findById(id);
@@ -42,23 +58,9 @@ export const postEdit = async (req, res) => {
     });
     return res.redirect(`/videos/${id}`)
 };
-export const getUpload = (req, res) => {
-    return res.render('upload', {pageTitle: `Upload Video`, fakeUser});
-};
-export const postUpload = async (req, res) => {
-    const {title, description, hashtags} = req.body;
-    try{
-        await Video.create({
-            title,
-            description,
-            hashtags : Video.formatHasgtags(hashtags)
-        });
-        return res.redirect(`/`);
-    }catch(error){
-        return res.render('upload', {pageTitle: `Upload Video`, fakeUser, errorMessage: error._message});
-    }
+export const deleteVideo = async (req, res) => {
+    const {id} = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect('/');
 };
 // export const search = (req, res) => res.send('Search Video');
-// export const remove = (req, res) => {
-//     return res.send(`Delete Video #${req.params.id}`);
-// };
