@@ -4,10 +4,13 @@ include mixins/video
 block content
     h2 Welcome here you will see the trending Wetube videos
     p I Love #{lovesTarget}
-    input(type="text" placeholder="What's your name")
-    button send
     div 
-        a(href="/videos/upload") Upload Video
+        hr
+        h3 login 
+        input(type="text" placeholder="What's your name")
+        button send
+        hr
+    div 
     each item in videos 
         +video(item)
     else 

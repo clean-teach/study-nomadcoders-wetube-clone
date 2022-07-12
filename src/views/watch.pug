@@ -4,5 +4,7 @@ block content
     h3 #{video.views} #{video.views === 1? 'view' : 'views'}
     div 
         p=video.description
+        ul
+            li=`hashtags : ${video.hashtags}`
         small=video.createAt
     a(href=`${video.id}/edit`) Edit Video &rarr;
