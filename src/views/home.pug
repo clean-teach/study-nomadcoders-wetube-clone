@@ -1,4 +1,4 @@
-extends base.pug
+extends layouts/base.pug
 include mixins/video
 
 block content
@@ -11,7 +11,7 @@ block content
         button send
         hr
     div 
-    each item in videos 
-        +video(item)
-    else 
-        div Sorry nothing found
+        each item in videos 
+            +video(item)
+        else 
+            div Sorry nothing found

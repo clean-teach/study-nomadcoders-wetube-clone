@@ -6,7 +6,7 @@ const fakeUser = {
 };
 export const home = async (req, res) => {
     try{
-        const videos = await Video.find({});
+        const videos = await Video.find({}).sort({createAt: 'desc'});
         return res.render('home', {pageTitle: 'Home', lovesTarget: 'tomato', fakeUser, videos});
     }catch(error){
         console.log('Error : ', {error});
@@ -63,4 +63,15 @@ export const deleteVideo = async (req, res) => {
     await Video.findByIdAndDelete(id);
     return res.redirect('/');
 };
-// export const search = (req, res) => res.send('Search Video');
+export const search = async (req, res) => {
+    const {keyword} = req.query;
+    let videos = [];
+    if(keyword){
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(`${keyword}`, 'i')
+            }
+        });
+    }
+    return res.render('search', {pageTitle: 'Search', videos, fakeUser});
+};
