@@ -16,7 +16,17 @@ export const postJoin = async (req, res) => {
     });
     res.redirect('/login');
 };
-export const login = (req, res) => res.send('login');
+export const getLogin = (req, res) => res.render('login', {pageTitle: 'Login'});
+export const postLogin = async (req, res) => {
+    const { username, password } = req.body;
+    // Check if account exists
+    const exists = await User.exists({username});
+    if(!exists){
+        return res.status(400).render('login', {pageTitle: 'Login', errorMessage: 'An account with this username dose not exists.'})
+    }
+    // Check if password correct
+    return res.end();
+};
 export const logout = (req, res) => res.send('logout');
 export const see = (req, res) => {
     return res.send(`See User #${req.params.id}`)
