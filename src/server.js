@@ -18,8 +18,8 @@ app.use(urlencoded({extended: true}));
 
 app.use(session({
     secret: 'Hello',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/wetube'}),
 }));
 
