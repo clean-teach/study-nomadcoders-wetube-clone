@@ -17,10 +17,10 @@ app.use(logger);
 app.use(urlencoded({extended: true}));
 
 app.use(session({
-    secret: 'Hello',
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/wetube'}),
+    store: MongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
 
 app.use((req, res, next) => {
