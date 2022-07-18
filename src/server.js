@@ -1,6 +1,7 @@
 import express, { urlencoded } from 'express'
 import morgan from 'morgan';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import rootRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
@@ -19,6 +20,7 @@ app.use(session({
     secret: 'Hello',
     resave: true,
     saveUninitialized: true,
+    store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/wetube'}),
 }));
 
 app.use((req, res, next) => {
@@ -27,11 +29,6 @@ app.use((req, res, next) => {
         next();
     });
 });
-
-// app.get('/add-one', (req, res, next) => {
-//     req.session.potato += 1;
-//     return res.send(`${req.session.id} <br><br> ${req.session.potato}`);
-// });
 
 app.use(localsMiddleware);
 
