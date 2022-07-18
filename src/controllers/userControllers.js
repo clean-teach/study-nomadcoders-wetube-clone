@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import User from '../models/User';
 import bcrypt from 'bcrypt';
 
@@ -37,16 +38,33 @@ export const postLogin = async (req, res) => {
 };
 export const startGithubLogin = (req, res) => {
     const baseUrl = 'https://github.com/login/oauth/authorize';
-    const cofig = {
-        client_id: "b7671fca3dcbc55923d9",
+    const config = {
+        client_id: process.env.GH_CLIENT,
         allow_signup: false,
         scope: "read:user user:email",
     };
-    const params = new URLSearchParams(cofig).toString();
+    const params = new URLSearchParams(config).toString();
     const finishUrl = `${baseUrl}?${params}`;
     return res.redirect(finishUrl);
 };
-export const finishGithubLogin = (req, res) => {};
+export const finishGithubLogin = async (req, res) => {
+    const baseUrl = 'https://github.com/login/oauth/access_token';
+    const config = {
+        client_id: process.env.GH_CLIENT,
+        client_secret: process.env.GH_SECRET,
+        code: req.query.code
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    const data = await fetch(finalUrl, {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+        },
+    });
+    const json = await data.json();
+    console.log(json);
+};
 export const logout = (req, res) => res.send('logout');
 export const see = (req, res) => {
     return res.send(`See User #${req.params.id}`)
