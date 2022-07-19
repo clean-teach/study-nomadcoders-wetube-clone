@@ -61,19 +61,34 @@ export const finishGithubLogin = async (req, res) => {
         headers: {
             Accept: "application/json",
         },
-    })).json();
-    // console.log(tokenRequest);
+    })).json();;
 
     if('access_token' in tokenRequest){
         const {access_token} = tokenRequest;
-        const userRequest = await (await fetch('https://api.github.com/user', {
+        const apiUrl = 'https://api.github.com/';
+        const userData = await (await fetch(`${apiUrl}user`, {
             method: 'GET',
             headers: {
                 Authorization: `token ${access_token}`
             }
         })).json();
-        console.log(userRequest);
-        res.send(JSON.stringify(userRequest));
+        console.log(userData);
+
+        const emailData = await (await fetch(`${apiUrl}user/emails`, {
+            method: 'GET',
+            headers: {
+                Authorization: `token ${access_token}`
+            }
+        })).json();
+        console.log(emailData);
+
+        const email = emailData.find(email => email.primary === true && email.verified === true);
+
+        if(!email){
+            return res.redirect('/login');
+        }
+        // 해당하는 email이 있을때 작업...
+        res.send(JSON.stringify(email));
     }else{
         return res.redirect('/login');
     }
