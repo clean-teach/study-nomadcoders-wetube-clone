@@ -62,15 +62,18 @@ export const finishGithubLogin = async (req, res) => {
             Accept: "application/json",
         },
     })).json();
+    // console.log(tokenRequest);
+
     if('access_token' in tokenRequest){
         const {access_token} = tokenRequest;
-        const userRequest = await (await fetch('GET https://api.github.com/user', {
+        const userRequest = await (await fetch('https://api.github.com/user', {
             method: 'GET',
             headers: {
                 Authorization: `token ${access_token}`
             }
         })).json();
         console.log(userRequest);
+        res.send(JSON.stringify(userRequest));
     }else{
         return res.redirect('/login');
     }
