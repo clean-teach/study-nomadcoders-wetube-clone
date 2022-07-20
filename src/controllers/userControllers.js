@@ -116,6 +116,12 @@ export const postEdit = async (req, res) => {
         },
         body: { name, email, username, location }
     } = req;
+    if(req.session.user.username !== username || req.session.user.email !== email){
+        const overlap = await User.exists({$or: [{email}, {username}]});
+        if(overlap){
+            return res.status(400).render('edit-profile', {pageTitle: 'Edit Profile', errorMessage: '이미 존재하는 email/usernam 입니다.'});
+        }
+    }
     const updateUser = await User.findByIdAndUpdate(_id, {
         name, email, username, location
     },{
