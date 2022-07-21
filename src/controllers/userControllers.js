@@ -112,9 +112,10 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
     const {
         session: {
-            user: { _id }
+            user: { _id, avatarUrl }
         },
-        body: { name, email, username, location }
+        body: { name, email, username, location },
+        file
     } = req;
     if(req.session.user.username !== username || req.session.user.email !== email){
         const overlap = await User.exists({$or: [{email}, {username}]});
@@ -122,7 +123,9 @@ export const postEdit = async (req, res) => {
             return res.status(400).render('edit-profile', {pageTitle: 'Edit Profile', errorMessage: '이미 존재하는 email/usernam 입니다.'});
         }
     }
+    console.log(file);
     const updateUser = await User.findByIdAndUpdate(_id, {
+        avatarUrl: file? file.path : avatarUrl,
         name, email, username, location
     },{
         new: true
