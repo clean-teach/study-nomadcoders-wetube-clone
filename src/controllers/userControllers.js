@@ -2,7 +2,7 @@ import User from '../models/User';
 import fetch from 'node-fetch';
 import bcrypt from 'bcrypt';
 
-export const getJoin = (req, res) => res.render('join', {pageTitle: 'Join'});
+export const getJoin = (req, res) => res.render('users/join', {pageTitle: 'Join'});
 export const postJoin = async (req, res) => {
     const {name, email, username, password, password2, location} = req.body;
     const pageTitle = 'Join';
@@ -18,7 +18,7 @@ export const postJoin = async (req, res) => {
     });
     res.redirect('/login');
 };
-export const getLogin = (req, res) => res.render('login', {pageTitle: 'Login'});
+export const getLogin = (req, res) => res.render('users/login', {pageTitle: 'Login'});
 export const postLogin = async (req, res) => {
     const { username, password } = req.body;
     const pageTitle = 'Login';
@@ -107,7 +107,7 @@ export const logout = (req, res) => {
     return res.redirect('/');
 };
 export const getEdit = (req, res) => {
-    return res.render('edit-profile', {pageTitle: 'Edit Profile'});
+    return res.render('users/edit-profile', {pageTitle: 'Edit Profile'});
 };
 export const postEdit = async (req, res) => {
     const {

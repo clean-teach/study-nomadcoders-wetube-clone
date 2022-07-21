@@ -14,10 +14,10 @@ export const watch = async (req, res) => {
     if(!video){
         return res.status(404).render('404', {pageTitle: 'Video not Found'});
     }
-    return res.render('watch', {pageTitle: video.title, video});
+    return res.render('videos/watch', {pageTitle: video.title, video});
 };
 export const getUpload = (req, res) => {
-    return res.render('upload', {pageTitle: `Upload Video`});
+    return res.render('videos/upload', {pageTitle: `Upload Video`});
 };
 export const postUpload = async (req, res) => {
     const {title, description, hashtags} = req.body;
@@ -29,23 +29,23 @@ export const postUpload = async (req, res) => {
         });
         return res.redirect(`/`);
     }catch(error){
-        return res.status(400).render('upload', {pageTitle: `Upload Video`, errorMessage: error._message});
+        return res.status(400).render('videos/upload', {pageTitle: `Upload Video`, errorMessage: error._message});
     }
 };
 export const getEdit = async (req, res) => {
     const {id} = req.params;
     const video = await Video.findById(id);
     if(!video){
-        return res.status(404).render('404', {pageTitle: 'Video not Found'});
+        return res.status(404).render('videos/404', {pageTitle: 'Video not Found'});
     }
-    return res.render('edit', {pageTitle: `Editing : ${video.title}`, video});
+    return res.render('videos/edit', {pageTitle: `Editing : ${video.title}`, video});
 };
 export const postEdit = async (req, res) => {
     const {id} = req.params;
     const { title, description, hashtags } = req.body;
     const video = await Video.exists({_id : id});
     if(!video){
-        return res.render('404', {pageTitle: 'Video not Found'});
+        return res.render('videos/404', {pageTitle: 'Video not Found'});
     }
     await Video.findByIdAndUpdate(id, {
         title,
@@ -69,5 +69,5 @@ export const search = async (req, res) => {
             }
         });
     }
-    return res.render('search', {pageTitle: 'Search', videos});
+    return res.render('videos/search', {pageTitle: 'Search', videos});
 };
