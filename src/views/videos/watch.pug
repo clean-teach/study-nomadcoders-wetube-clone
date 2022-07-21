@@ -1,6 +1,7 @@
 extends ../common/layouts/base
 
 block content
+    video(src='/' + video.fileUrl, controls)
     h3 #{video.views} #{video.views === 1? 'view' : 'views'}
     div 
         p=video.description
