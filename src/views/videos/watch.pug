@@ -2,19 +2,22 @@ extends ../common/layouts/base
 
 block content
     video(src='/' + video.fileUrl, controls)
-    h3 #{video.views} #{video.views === 1? 'view' : 'views'}
-    div 
-        p=video.description
-        div 
-            b hashtags :
-            ul
-                each hashtag in video.hashtags
-                    li=hashtag
-        small=video.createAt
-    p
-        small Upload by 
-            a(href=`/users/${video.owner.id}`) #{video.owner.name}
-    if String(video.owner.id) === String(loggedInUser._id)
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
+    //- h3 #{video.views} #{video.views === 1? 'view' : 'views'}
+    //- div 
+    //-     p=video.description
+    //-     div 
+    //-         b hashtags :
+    //-         ul
+    //-             each hashtag in video.hashtags
+    //-                 li=hashtag
+    //-     small=video.createAt
+    //- p
+    //-     small Upload by 
+    //-         a(href=`/users/${video.owner.id}`) #{video.owner.name}
+    //- if String(video.owner.id) === String(loggedInUser._id)
+    //-     a(href=`${video.id}/edit`) Edit Video &rarr;
+    //-     br
+    //-     a(href=`${video.id}/delete`) Delete Video &rarr;
+
+block script
+    script(src="../static/js/videoPlayer.js") 
