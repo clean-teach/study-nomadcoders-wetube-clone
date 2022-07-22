@@ -12,8 +12,9 @@ block content
                     li=hashtag
         small=video.createAt
     p
-        small Upload by #{owner.name}
-    if String(video.owner) === String(loggedInUser._id)
+        small Upload by 
+            a(href=`/users/${video.owner.id}`) #{video.owner.name}
+    if String(video.owner.id) === String(loggedInUser._id)
         a(href=`${video.id}/edit`) Edit Video &rarr;
         br
         a(href=`${video.id}/delete`) Delete Video &rarr;
