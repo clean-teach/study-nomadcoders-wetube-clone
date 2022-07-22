@@ -2,7 +2,7 @@ extends ../common/layouts/base
 include ../common/mixins/video
 
 block content
-    each item in videos 
+    each item in user.videos 
         +video(item)
     else 
         div Sorry nothing found
