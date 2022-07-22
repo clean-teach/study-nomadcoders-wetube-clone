@@ -21,6 +21,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({mongoUrl: process.env.DB_URL}),
+    cookie: { maxAge: 5000 },
 }));
 
 app.use((req, res, next) => {

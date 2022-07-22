@@ -159,6 +159,13 @@ export const postChangePassword = async (req, res) => {
     await user.save();
     return res.redirect('/users/logout');
 };
-export const see = (req, res) => {
-    return res.send(`See User #${req.params.id}`)
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    if(!user){
+        return res.status(404).render('common/404', {pageTitle: 'User nor Found.'});
+    }
+
+    return res.render('users/profile', {pageTitle: user.name, user});
 };
