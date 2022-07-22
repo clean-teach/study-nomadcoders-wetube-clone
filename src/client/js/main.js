@@ -1,7 +1,7 @@
 import '../scss/style.scss'
 
 const hello = async () => {
-    alert('Hello');
+    console.log('Hello');
     const x = await fetch('');
 }; 
 hello();
