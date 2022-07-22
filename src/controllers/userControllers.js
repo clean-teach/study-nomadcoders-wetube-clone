@@ -123,7 +123,6 @@ export const postEdit = async (req, res) => {
             return res.status(400).render('edit-profile', {pageTitle: 'Edit Profile', errorMessage: '이미 존재하는 email/usernam 입니다.'});
         }
     }
-    console.log(file);
     const updateUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file? file.path : avatarUrl,
         name, email, username, location
