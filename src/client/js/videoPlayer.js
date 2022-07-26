@@ -18,6 +18,11 @@ let volumeValue = .5;
 video.volume = volumeValue;
 
 const handlePlayClick = (event) => {
+    if(event.type === 'keydown'){
+        if(event.code !== 'Space'){
+            return;
+        }
+    }
     if(video.paused){
         video.play();
     }else{
@@ -100,3 +105,5 @@ timeline.addEventListener('input', handleTimelineChange)
 fullScreenBtn.addEventListener('click', handeFullscreen);
 videoContainer.addEventListener('mousemove', handleMouseMove);
 videoContainer.addEventListener('mouseleave', handleMouseLeave);
+video.addEventListener('click', handlePlayClick);
+window.addEventListener('keydown', handlePlayClick)
