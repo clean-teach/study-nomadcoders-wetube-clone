@@ -3,11 +3,11 @@ include common/mixins/video
 
 block content
     h2 Welcome here you will see the trending Wetube videos
-    div 
+    div .video-grid 
         each item in videos 
             +video(item)
         else 
-            div Sorry nothing found
+            span.empty__message Sorry nothing found
 
 block script
     script(src="../static/js/main.js") 

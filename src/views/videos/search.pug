@@ -2,11 +2,12 @@ extends ../common/layouts/base
 include ../common/mixins/video
 
 block content
-    form(method='GET')
+    form(method='GET').search__form
         input(type="text" name="keyword" placeholder="Search by Title" required)
-        input(type="submit" value="Search now")
-    div 
+        button
+            i.fab.fa-search
+    div.video-grid
         each item in videos 
             +video(item)
         else 
-            div Sorry nothing found
+            span.empty__message Sorry nothing found

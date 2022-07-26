@@ -4,8 +4,7 @@ block content
     if errorMessage
         p
             strong=errorMessage
-    img(src="/" + loggedInUser.avatarUrl, alt="")
-    form(method='POST' enctype='multipart/form-data')
+    form(method='POST' enctype='multipart/form-data').edit-profile__form
         label(for='avatar')
         input(id='avatar' type='file' name='avatar' accept='image/*')
         input(name="name" type="text" placeholder="Name" required value=loggedInUser.name)
@@ -15,4 +14,5 @@ block content
         input(type="submit" value="Update Profile")
         if !loggedInUser.socialOnly
             hr
-            a(href="change-password") Change Password &rarr;
+            div.edit-profile__password
+                a(href="change-password") Change Password &rarr;
