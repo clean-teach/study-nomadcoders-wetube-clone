@@ -1,11 +1,13 @@
 const startBtn = document.querySelector('#startBtn');
+const previewVideo = document.querySelector('#preview');
 
 const handleStart = () => {
     const stream = navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true
+        audio: false,
+        video: {width: 'auto', height: 'auto'}
     });
-    console.log(stream);
+    previewVideo.srcObject = stream;
+    previewVideo.play();
 };
 
 startBtn.addEventListener('click', handleStart)
