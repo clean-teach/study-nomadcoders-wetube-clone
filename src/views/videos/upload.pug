@@ -3,7 +3,8 @@ extends ../common/layouts/base
 block content 
     div
         video#preview
-        button#startBtn Start Recording
+        div
+            button#startBtn Start Recording
     if(errorMessage)
         span #{errorMessage}
     form(method='POST' action='/videos/upload' enctype='multipart/form-data')

@@ -1,30 +1,31 @@
 const startBtn = document.querySelector('#startBtn');
 const previewVideo = document.querySelector('#preview');
+const btnWrap = document.querySelector('.btn-wrap');
 
 let stream;
+let recorder;
 
+const handleDownload = () => {};
 const handleStart = () => {
     startBtn.innerText = 'Stop Recording';
     startBtn.removeEventListener('click', handleStart);
     startBtn.addEventListener('click', handleStop);
 
-    const recorder = new MediaRecorder(stream);
-    recorder.ondataavailable = (e) => {
-        console.log("recording done");
-        console.log(e);
-        console.log(e.data);
+    recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = (event) => {
+        const videoFile = URL.createObjectURL(event.data);
+        previewVideo.srcObject = null;
+        previewVideo.src = videoFile;
+        previewVideo.loop = true;
+        previewVideo.play();
     };
-    console.log(recorder);
     recorder.start();
-    console.log(recorder);
-    setTimeout(() => {
-        recorder.stop();
-    }, 10000)
 };
 const handleStop = () => {
-    startBtn.innerText = 'Start Recording';
+    startBtn.innerText = 'Download Recording';
     startBtn.removeEventListener('click', handleStop);
-    startBtn.addEventListener('click', handleStart);
+    startBtn.addEventListener('click', handleDownload);
+    recorder.stop();
 };
 const init = async () => {
     stream = await navigator.mediaDevices.getUserMedia({
