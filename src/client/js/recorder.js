@@ -1,8 +1,8 @@
 const startBtn = document.querySelector('#startBtn');
 const previewVideo = document.querySelector('#preview');
 
-const handleStart = () => {
-    const stream = navigator.mediaDevices.getUserMedia({
+const handleStart = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {width: 'auto', height: 'auto'}
     });
