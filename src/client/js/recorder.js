@@ -4,16 +4,23 @@ const btnWrap = document.querySelector('.btn-wrap');
 
 let stream;
 let recorder;
+let videoFile;
 
-const handleDownload = () => {};
+const handleDownload = () => {
+    const a = document.createElement('a');
+    a.href = videoFile;
+    a.download = 'MyRecording.webm';
+    document.body.appendChild(a);
+    a.click();
+};
 const handleStart = () => {
     startBtn.innerText = 'Stop Recording';
     startBtn.removeEventListener('click', handleStart);
     startBtn.addEventListener('click', handleStop);
 
-    recorder = new MediaRecorder(stream);
+    recorder = new MediaRecorder(stream, {mainType: 'video/webm'});
     recorder.ondataavailable = (event) => {
-        const videoFile = URL.createObjectURL(event.data);
+        videoFile = URL.createObjectURL(event.data);
         previewVideo.srcObject = null;
         previewVideo.src = videoFile;
         previewVideo.loop = true;
