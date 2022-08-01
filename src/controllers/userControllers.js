@@ -17,6 +17,7 @@ export const postJoin = async (req, res) => {
     await User.create({
         name, email, username, password, location
     });
+    req.flash('info', 'Success Join');
     res.redirect('/login');
 };
 export const getLogin = (req, res) => res.render('users/login', {pageTitle: 'Login'});
@@ -35,6 +36,7 @@ export const postLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash('info', 'Success Login');
     return res.redirect('/');
 };
 export const startGithubLogin = (req, res) => {
@@ -82,6 +84,7 @@ export const finishGithubLogin = async (req, res) => {
         const emailObj = emailData.find(email => email.primary === true && email.verified === true);
         if(!emailObj){
             // set Notification
+            req.flash('info', 'Success Login');
             return res.redirect('/login');
         }
         let user = await User.findOne({email: emailObj.email});
@@ -105,6 +108,7 @@ export const finishGithubLogin = async (req, res) => {
 };
 export const logout = (req, res) => {
     req.session.destroy();
+    req.flash('info', 'bye bye');
     return res.redirect('/');
 };
 export const getEdit = (req, res) => {
@@ -135,6 +139,7 @@ export const postEdit = async (req, res) => {
 };
 export const getChangePassword = (req, res) => {
     if(req.session.user.socialOnly){
+        req.flash('error', 'Can not change password');
         return res.redirect('/');
     }
     return res.render('users/change-password', {pageTitle:'Change Password'});
@@ -157,6 +162,7 @@ export const postChangePassword = async (req, res) => {
     }
     user.password = newPassword;
     await user.save();
+    req.flash('info', 'Password update');
     return res.redirect('/users/logout');
 };
 export const see = async (req, res) => {

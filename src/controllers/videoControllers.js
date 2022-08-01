@@ -56,6 +56,7 @@ export const getEdit = async (req, res) => {
         return res.status(404).render('common/404', {pageTitle: 'Video not Found'});
     }
     if(String(video.owner) !== String(_id)){
+        req.flash("error", "Not authorized");
         return res.status(403).redirect('/');
     }
     return res.render('videos/edit', {pageTitle: `Editing : ${video.title}`, video});
@@ -73,6 +74,7 @@ export const postEdit = async (req, res) => {
         return res.render('common/404', {pageTitle: 'Video not Found'});
     }
     if(String(video.owner) !== String(_id)){
+        req.flash("error", "Your not the owner of the video");
         return res.status(403).redirect('/');
     }
     await Video.findByIdAndUpdate(id, {
