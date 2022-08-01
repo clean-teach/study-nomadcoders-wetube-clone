@@ -83,7 +83,6 @@ export const finishGithubLogin = async (req, res) => {
         })).json();
         const emailObj = emailData.find(email => email.primary === true && email.verified === true);
         if(!emailObj){
-            // set Notification
             req.flash('info', 'Success Login');
             return res.redirect('/login');
         }
@@ -107,7 +106,10 @@ export const finishGithubLogin = async (req, res) => {
     }
 };
 export const logout = (req, res) => {
-    req.session.destroy();
+    // req.session.destroy();
+    req.session.user = null;
+    res.locals.loggedInUser = req.session.user;
+    req.session.loggedIn = false;
     req.flash('info', 'bye bye');
     return res.redirect('/');
 };
@@ -145,7 +147,6 @@ export const getChangePassword = (req, res) => {
     return res.render('users/change-password', {pageTitle:'Change Password'});
 };
 export const postChangePassword = async (req, res) => {
-    // Send Notification
     const {
         session: {
             user: { _id }
