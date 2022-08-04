@@ -20,22 +20,24 @@ block content
                 button#fullScreen 
                     i.fas.fa-expand
 
-    //- h3 #{video.views} #{video.views === 1? 'view' : 'views'}
-    //- div 
-    //-     p=video.description
-    //-     div 
-    //-         b hashtags :
-    //-         ul
-    //-             each hashtag in video.hashtags
-    //-                 li=hashtag
-    //-     small=video.createAt
-    //- p
-    //-     small Upload by 
-    //-         a(href=`/users/${video.owner.id}`) #{video.owner.name}
-    //- if String(video.owner.id) === String(loggedInUser._id)
-    //-     a(href=`${video.id}/edit`) Edit Video &rarr;
-    //-     br
-    //-     a(href=`${video.id}/delete`) Delete Video &rarr;
+    div.video__data 
+        p.video__title=video.title
+        p=video.description
+        small.video__owner Upload by 
+            a(href=`/users/${video.owner.id}`)=video.owner.name
+        small.video__createAt=new Date(video.createAt).toLocaleString('ko-kr', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',})
+        dl 
+            dt hashtags :
+            each hashtag in video.hashtags
+                dd=`${hashtag} `
+        small #{video.meta.views} #{video.meta.views === 1? 'view' : 'views'}
+        hr
+        if String(video.owner.id) === String(loggedInUser._id)
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
+        
+    
 
 block scripts
     script(src="../static/js/videoPlayer.js") 
