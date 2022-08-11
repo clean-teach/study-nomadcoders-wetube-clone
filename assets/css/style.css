@@ -334,6 +334,17 @@ form label {
   background-color: white;
   color: black;
   margin-bottom: 10px;
+  position: relative;
+  padding-right: 1rem;
+}
+.video__comments .video__comment .btn-delete {
+  border: none;
+  background: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  cursor: pointer;
 }
 
 a {
