@@ -1,6 +1,28 @@
 const videoContainer = document.getElementById('videoContainer');
 const form = document.getElementById('commentForm');
 
+const handleDeleteComment = async (event) => {
+    const commentId = event.target.parentNode.dataset.id;
+    const response = await fetch(`/api/comments/${commentId}/delete`, {
+        method: 'DELETE'
+    });
+    if(response.status === 200) {
+        event.target.parentNode.remove();
+    }
+};
+
+const getComment = () => {
+    const comments = document.querySelectorAll('.video__comment');
+    if(comments.length !== 0){
+        comments.forEach(comment => {
+            const btnDelete = comment.querySelector('.btn-delete');
+            btnDelete.addEventListener('click', handleDeleteComment);
+        });
+    }
+};
+
+getComment();
+
 const addComment = (text, id) => {
     const videoComments = document.querySelector('.video__comments ul');
     const newComment = document.createElement('li');
@@ -38,6 +60,7 @@ const handleSubmit = async (event) => {
         textarea.value = '';
         const { newCommentId } = await response.json();;
         addComment(text, newCommentId);
+        getComment();
     }
 };
 

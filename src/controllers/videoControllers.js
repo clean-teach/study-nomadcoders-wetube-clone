@@ -148,3 +148,17 @@ export const createComment = async(req, res) => {
 
     return res.status(201).json({newCommentId: comment._id});
 };
+
+export const deleteComment = async (req, res) => {
+    const {
+        params: {id},
+        session: {user}
+    } = req;
+    const comment = await Comment.findById(id).populate('owner');
+    const ownerId = comment.owner._id.toString();
+    if(ownerId !== user._id){
+        return res.sendStatus(403);
+    }
+    await Comment.findByIdAndDelete(id);
+    return res.sendStatus(200);
+};

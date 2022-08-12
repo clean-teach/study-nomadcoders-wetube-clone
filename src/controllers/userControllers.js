@@ -64,7 +64,7 @@ export const finishGithubLogin = async (req, res) => {
         headers: {
             Accept: "application/json",
         },
-    })).json();;
+    })).json();
 
     if('access_token' in tokenRequest){
         const {access_token} = tokenRequest;
