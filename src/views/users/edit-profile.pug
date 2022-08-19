@@ -11,7 +11,7 @@ block content
         input(name="email" type="email" placeholder="E-mail" required value=loggedInUser.email)
         input(name="username" type="text" placeholder="User name" required value=loggedInUser.username)
         input(name="localhost" type="text" placeholder="Location" value=loggedInUser.location)
-        input(type="submit" value="Update Profile")
+        input(type="submit" value="Update Profile" class='social__btn')
         if !loggedInUser.socialOnly
             hr
             div.edit-profile__password
