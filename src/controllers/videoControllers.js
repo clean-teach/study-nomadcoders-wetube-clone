@@ -5,7 +5,6 @@ import Comment from '../models/Comment';
 export const home = async (req, res) => {
     try{
         const videos = await Video.find({}).sort({createAt: 'desc'}).populate('owner');
-        console.log(videos);
         return res.render('home', {pageTitle: 'Home', videos});
     }catch(error){
         console.log('Error : ', {error});
@@ -43,7 +42,6 @@ export const postUpload = async (req, res) => {
         user.save();
         return res.redirect(`/`);
     }catch(error){
-        console.log(error);
         return res.status(400).render('videos/upload', {pageTitle: `Upload Video`, errorMessage: error._message});
     }
 };
