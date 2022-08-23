@@ -8,9 +8,19 @@ const s3 = new awsSdk.S3({
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
 });
-const multerUploader = multerS3({
+
+console.log('process.env.NODE_ENV : ', process.env.NODE_ENV);
+console.log('process.env.NODE_ENV !== production : ', process.env.NODE_ENV !== 'production');
+
+const HEROKU_BUCKET_NAME = 'nomad-wetube';
+const s3ImageUploader = multerS3({
     s3: s3,
-    bucket: 'nomad-wetube',
+    bucket: `${HEROKU_BUCKET_NAME}/images`,
+    acl: 'public-read',
+});
+const s3VideoUploader = multerS3({
+    s3: s3,
+    bucket: `${HEROKU_BUCKET_NAME}/videos`,
     acl: 'public-read',
 });
 
@@ -41,12 +51,12 @@ export const avatarUpload = multer({
     limits: {
         fileSize: 3000000,
     },
-    storage: multerUploader,
+    storage: s3ImageUploader,
 });
 export const videoUpload = multer({
     dest: 'uploads/videos/', 
     limits: {
         fileSize: 10000000,
     },
-    storage: multerUploader,
+    storage: s3VideoUploader,
 });
