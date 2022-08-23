@@ -1,6 +1,7 @@
 import User from '../models/User';
 import Video from '../models/Video';
 import Comment from '../models/Comment';
+import { isHeroku } from '../middlewares';
 
 export const home = async (req, res) => {
     try{
@@ -27,11 +28,11 @@ export const postUpload = async (req, res) => {
             user: { _id }
         },
         body: { title, description, hashtags },
-        file: { location: fileUrl },
+        file,
     } = req;
     try{
         const newVideo = await Video.create({
-            fileUrl,
+            fileUrl : isHeroku ? file.location : `/${file.path}`,
             title,
             description,
             hashtags : Video.formatHasgtags(hashtags),
